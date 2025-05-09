@@ -24,7 +24,7 @@ Backlog AI Action Bot translates natural language commands into Backlog API call
 
 Below is the architecture diagram for the Backlog AI Action Bot:
 
-![Backlog AI Action Bot Architecture](./backlogAiArchi.png)
+![Backlog AI Action Bot Architecture](./BackLogAIArchi.png)
 
 ## Getting Started
 
@@ -40,8 +40,8 @@ Clone the repository and install dependencies:
 
 ```sh
 # Clone the repository
-git clone <repository-url>
-cd backlog-ai-action-bot
+git clone https://github.com/banoth-ravinder/backlog-ai-bot.git
+cd backlog-ai-bot
 
 # Install dependencies
 npm install
@@ -53,7 +53,7 @@ The application uses a proxy server to handle requests to the Backlog API. Start
 
 1. Navigate to the project directory:
    ```sh
-   cd backlog-ai-action-bot
+   cd backlog-ai-bot
    ```
 
 2. Start the proxy server:
