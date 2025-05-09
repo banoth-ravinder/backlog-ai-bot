@@ -101,6 +101,21 @@ VITE_OPENAI_API_KEY=your_openai_api_key_here
 
 The application will interpret your command and execute the corresponding Backlog API call.
 
+## Testing
+
+The application uses Vitest for unit and integration testing. To run the tests:
+
+```sh
+# Run tests once
+npm run test
+```
+
+#### Test Structure
+
+- `src/test/setup.ts`: Global test setup, including MSW server configuration for API mocking
+- Unit tests are located next to the files they test with a `.test.ts` or `.test.tsx` extension
+- MSW is used to mock API responses from Backlog and OpenAI
+
 ## Available Commands
 
 The application supports a wide range of commands for interacting with Backlog:
