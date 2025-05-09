@@ -1,18 +1,12 @@
 import express from "express";
 import axios from "axios";
 import cors from "cors";
-import https from "https";
 
 const app = express();
 const PORT = 3001; // Choose a port for the proxy server
 
 const BASE_URL_COM = "https://nulab-exam.backlog.com/api/v2";
 const BASE_URL_JP = "https://nulab-exam.backlog.jp/api/v2";
-
-// Create an HTTPS agent that disables SSL verification
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false, // Disable SSL certificate verification
-});
 
 // Enable CORS for all routes
 app.use(cors());
@@ -35,7 +29,6 @@ app.use("/api", async (req, res) => {
         },
         data: req.body,
         params: req.query,
-        // httpsAgent, // Use the custom HTTPS agent
       });
     };
 
