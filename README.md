@@ -116,6 +116,13 @@ npm run test
 - Unit tests are located next to the files they test with a `.test.ts` or `.test.tsx` extension
 - MSW is used to mock API responses from Backlog and OpenAI
 
+## Security
+
+Improved the application's security by implementing several key measures:
+
+- Added input sanitization to prevent XSS attacks
+- Added CSRF protection with tokens for form submissions
+
 ## Available Commands
 
 The application supports a wide range of commands for interacting with Backlog:

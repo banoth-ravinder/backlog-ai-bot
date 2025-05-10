@@ -17,6 +17,7 @@ import {
 } from "@/lib/ai/command-processor";
 import openAIService from "@/lib/ai/openai-service";
 import { useNavigate } from "react-router-dom";
+import { sanitizeInput } from "@/lib/security";
 
 interface Message {
   id: string;
@@ -33,6 +34,9 @@ const Dashboard: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const csrfToken = useRef(
+    `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -75,6 +79,9 @@ const Dashboard: React.FC = () => {
         },
       ]);
     }
+
+    // Add CSRF token to localStorage for verification
+    localStorage.setItem("csrf_token", csrfToken.current);
   }, []);
 
   useEffect(() => {
@@ -92,6 +99,14 @@ const Dashboard: React.FC = () => {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Verify CSRF token before processing the message
+    if (localStorage.getItem("csrf_token") !== csrfToken.current) {
+      toast.error(
+        "Security Error: Invalid form submission detected. Please refresh the page."
+      );
+      return;
+    }
 
     if (!input.trim()) return;
 
@@ -157,7 +172,7 @@ const Dashboard: React.FC = () => {
       }
 
       // Process the command
-      const command = await commandProcessor.parseCommand(input);
+      const command = await commandProcessor.parseCommand(sanitizeInput(input));
 
       // Wait for a short delay to simulate processing
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -324,7 +339,7 @@ const Dashboard: React.FC = () => {
           <form onSubmit={handleSendMessage} className="flex gap-2">
             <Input
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => setInput(sanitizeInput(e.target.value))}
               placeholder="Type a command or ask a question..."
               className="flex-1"
               disabled={isProcessing}
