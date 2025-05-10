@@ -243,9 +243,9 @@ const Dashboard: React.FC = () => {
             content = (
               <div>
                 <p>{result.message}</p>
-                <pre className="mt-2 bg-gray-100 p-2 rounded">
+                {/* <pre className="mt-2 bg-gray-100 p-2 rounded">
                   {JSON.stringify(result.data, null, 2)}
-                </pre>
+                </pre> */}
               </div>
             );
           }
